@@ -1,0 +1,27 @@
+name: Publish StackSpot Plugin
+on:
+  workflow_dispatch:
+    inputs:
+      plugin:
+        type: choice
+        required: true
+        description: Name of the plugin to be deployed
+        options:
+          - nodejs-backend-base
+      studio:
+        description: Name of the studio to plugin be deployed
+        default: gotei-13
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Publish Plugin
+        uses: stack-spot/publish-plugin-action@v1.1.2
+        with:
+          client_id: ${{ secrets.STK_CLIENT_ID }}
+          client_key: ${{ secrets.STK_CLIENT_KEY }}
+          realm: ${{ secrets.STK_REALM }}
+          studio: ${{ inputs.studio }}
+          plugin_path: ${{ inputs.plugin }}
