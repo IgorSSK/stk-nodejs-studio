@@ -1,0 +1,44 @@
+{
+  "name": "{{project_name}}",
+  "version": "1.0.0",
+  "description": "{{app_description}}",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsnd --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register app/src/server.ts",
+    "clean": "rimraf build",
+    "build": "tsc && tsc-alias",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --passWithNoTests --coverage",
+    "lint": "biome check --apply src",
+    "postinstall": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "18.6.0",
+    "@commitlint/config-conventional": "^18.6.0",
+    "@types/node": "^20.11.16",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "@types/jest": "29.5.12",
+    "ts-jest": "29.1.2",
+    "jest": "29.7.0",
+    "ts-node": "10.9.2",
+    "ts-node-dev": "2.0.0",
+    "tsc-alias": "1.8.8",
+    "tsconfig-paths": "4.2.0",
+    "tscpaths": "0.0.9",
+    "@biomejs/biome": "1.5.3",
+    "rimraf": "5.0.5",
+    "husky": "^9.0.10",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}

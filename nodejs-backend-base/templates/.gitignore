@@ -1,0 +1,15 @@
+node_modules
+# Keep environment variables out of version control
+.env
+.env.*
+dist
+build
+# DynamoDB Local files
+.dynamodb/
+# Serverless directories
+.serverless/
+# Logs
+logs
+*.log
+# Unit tests
+coverage

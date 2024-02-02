@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "baseUrl": "./src",
+    "types": ["node", "jest"],
+    "resolveJsonModule": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "paths": {
+      {% if arch == "Hexagonal" %}
+      "@application/*": ["./app/src/application/*"],
+			"@adapters/*": ["./app/src/adapters/*"],
+			"@common/*": ["./app/src/common/*"],
+			"@infrastructure/*": ["./app/src/infrastructure/*"],
+      "@test/*": ["./test/*"]
+      {% elif arch == "Clean Architecture" %}
+      "@core/*": ["./app/src/core/*"],
+      "@application/*": ["./app/src/application/*"],
+      "@domain/*": ["./app/src/domain/*"],
+      "@infra/*": ["./app/src/infra/*"],
+      "@test/*": ["./test/*"],
+      "@utils/*": ["./app/src/utils/*"]
+      {% elif arch == "MVC" %}
+      "@model/*": ["./models/*"],
+      "@controller/*": ["./controllers/*"],
+      "@service/*": ["./services/*"],
+      "@test/*": ["./test/*"],
+      "@utils/*": ["./app/src/utils/*"]
+      {% endif %}
+    }
+  }
+}

@@ -9,31 +9,70 @@ metadata:
 spec:
   type: app
   compatibility:
-    - python
+    - typescript
   docs:
     pt-br: docs/pt-br/docs.md
     en-us: docs/en-us/docs.md
-  single-use: False
+  single-use: true
   technologies: # Ref: https://docs.stackspot.com/create-use/create-content/yaml-files/plugin-yaml/#technologies-1
-    - Api
+    - TypeScript
   stk-projects-only: false
   inputs:
-    - label: Type name of your resource
-      name: resource
+    - label: Application Description
+      name: app_description
       type: text
       required: true
-      default: Client
-      pattern: '([A-Z][a-z]+)+'
-      help: 'Inform your resource name (e.g.: Client)'
-    - label: Choose http method of new endpoint
-      name: method
-      type: text
+      help: "Inform your app name (e.g.: example-api)"
+    - label: Choose an Architecture Type
+      name: arch
+      type: select
       items:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-      default: GET
+        - Hexagonal
+        - MVC
+        - Clean Architecture
+        - None
+      default: None
       required: true
-      help: 'Inform the method of the endpoint (e.g.: post or delete)'
+      global: true
+      help: "Inform the architecture you desire to use in the application"
+    - label: Choose the Package Manager
+      name: package_manager
+      type: select
+      items:
+        - npm
+        - yarn
+        - pnpm
+      default: npm
+      required: true
+      global: true
+      help: "Inform which NodeJS package manager to use"
+  hooks:
+    - type: run-script
+      trigger: before-render
+      script: scripts/before-render.py
+    - type: render-templates
+      trigger: after-render
+      path: snippets/hexagonal
+      condition:
+        variable: arch
+        operator: "=="
+        value: Hexagonal
+    - type: render-templates
+      trigger: after-render
+      path: snippets/clean
+      condition:
+        variable: arch
+        operator: "=="
+        value: Clean Architecture
+    - type: render-templates
+      trigger: after-render
+      path: snippets/mvc
+      condition:
+        variable: arch
+        operator: "=="
+        value: MVC
+    - type: run
+      trigger: after-render
+      commands:
+        - echo {{package_manager}} --version
+        - "{{package_manager}} install"
